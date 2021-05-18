@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using TicketsSearch.Extensions;
 using TicketsSearch.Models;
@@ -10,16 +11,15 @@ namespace TicketsSearch
         static void Main(string[] args)
         {
             string jsonOrganizations = File.ReadAllText("Data/organizations.json");
-            Organization[] organizations = jsonOrganizations.DeserializeOrganizations();
+            List<Organization> organizations = jsonOrganizations.DeserializeOrganizations();
             string jsonTickets = File.ReadAllText("Data/tickets.json");
-            Ticket[] tickets = jsonTickets.DeserializeTickets();
+            List <Ticket> tickets = jsonTickets.DeserializeTickets();
             string jsonUsers = File.ReadAllText("Data/users.json");
-            User[] users = jsonUsers.DeserializeUsers();
+            List <User> users = jsonUsers.DeserializeUsers();
 
             Console.WriteLine("Search for the values");
 
-            var open = true;
-            while (open)
+            while (true)
             {
                 var command = Console.ReadLine();
                 var commandSplit = command.Split(" ");
@@ -29,10 +29,6 @@ namespace TicketsSearch
                     {
                         case "search":
                             Console.WriteLine("Correct value");
-                            break;
-                        case "q":
-                            Console.WriteLine("Correct value");
-                            open = false;
                             break;
                         default:
                             Console.WriteLine("Invalid command line argument");
