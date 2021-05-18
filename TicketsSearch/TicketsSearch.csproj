@@ -10,4 +10,12 @@
     <Folder Include="Models\" />
     <Folder Include="Extensions\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Data\organizations.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
 </Project>
