@@ -3,10 +3,10 @@ using Newtonsoft.Json;
 
 namespace TicketsSearch.Models
 {
-    public class Entity
+    public class Entity<T>
     {
         [JsonProperty("_id")]
-        public string Id { get; set; }
+        public T Id { get; set; }
         [JsonProperty("url")]
         public string Url { get; set; }
         [JsonProperty("external_id")]
@@ -16,4 +16,5 @@ namespace TicketsSearch.Models
         [JsonProperty("created_at")]
         public string CreatedAt { get; set; }
     }
+    public class Entity : Entity<int> { }
 }

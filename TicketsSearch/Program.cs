@@ -9,9 +9,13 @@ namespace TicketsSearch
     {
         static void Main(string[] args)
         {
-            string jsonString = File.ReadAllText("Data/organizations.json");
-            Organization[] organisations = jsonString.Deserialise();
-            
+            string jsonOrganizations = File.ReadAllText("Data/organizations.json");
+            Organization[] organizations = jsonOrganizations.DeserializeOrganizations();
+            string jsonTickets = File.ReadAllText("Data/tickets.json");
+            Ticket[] tickets = jsonTickets.DeserializeTickets();
+            string jsonUsers = File.ReadAllText("Data/users.json");
+            User[] users = jsonUsers.DeserializeUsers();
+
             Console.WriteLine("Search for the values");
 
             var open = true;
