@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace TicketsSearch.Models
 {
@@ -7,7 +8,7 @@ namespace TicketsSearch.Models
         [JsonProperty("name")]
         public string Name { get; set; }
         [JsonProperty("domain_names")]
-        public string[] DomainNames { get; set; }
+        public List<string> DomainNames { get; set; }
         [JsonProperty("details")]
         public string Details { get; set; }
         [JsonProperty("shared_tickets")]

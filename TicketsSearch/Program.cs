@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using TicketsSearch.Utilities;
@@ -33,7 +34,8 @@ namespace TicketsSearch
 					switch (commandSplit[0])
 					{
 						case "search":
-							var searchResults = commandSplit[1].Search(
+							var keyword = string.Join(" ", commandSplit.Skip(1));
+							var searchResults = keyword.Search(
 								organizations,
 								users,
 								tickets,

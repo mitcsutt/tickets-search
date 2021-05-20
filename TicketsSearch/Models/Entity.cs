@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace TicketsSearch.Models
@@ -12,7 +12,7 @@ namespace TicketsSearch.Models
         [JsonProperty("external_id")]
         public string ExternalId { get; set; }
         [JsonProperty("tags")]
-        public string[] Tags { get; set; }
+        public List<string> Tags { get; set; }
         [JsonProperty("created_at")]
         public string CreatedAt { get; set; }
     }
