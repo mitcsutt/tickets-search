@@ -55,7 +55,7 @@ namespace TicketsSearch
 							break;
 						default:
 							Console.WriteLine("Invalid command line argument");
-							break;
+							continue;
 					}
 				}
 				else

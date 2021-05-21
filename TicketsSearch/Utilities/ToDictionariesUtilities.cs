@@ -55,7 +55,7 @@ namespace TicketsSearch.Utilities
 
 			tickets.ForEach(ticket =>
 			{
-				var organizationId = ticket.OrganisationId;
+				var organizationId = ticket.OrganizationId;
 				var ticketId = ticket.Id;
 				var assigneeId = ticket.AssigneeId;
 				var submitterId = ticket.SubmitterId;

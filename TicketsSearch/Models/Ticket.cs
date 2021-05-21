@@ -19,9 +19,9 @@ namespace TicketsSearch.Models
         [JsonProperty("assignee_id")]
         public string AssigneeId { get; set; }
         [JsonProperty("organization_id")]
-        public string OrganisationId { get; set; }
+        public string OrganizationId { get; set; }
         [JsonProperty("has_incidents")]
-        public string HasIncidents { get; set; }
+        public bool HasIncidents { get; set; }
         [JsonProperty("due_at")]
         public string DueAt { get; set; }
         [JsonProperty("via")]

@@ -1,21 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TicketsSearch.Models;
 namespace TicketsSearch.Services
 {
 	public static class SearchService
 	{
-		public static List<string> Search(
+		public static List<string> SearchOrganizations(
 			this string keyword,
 			List<Organization> organizations,
-			List<User> users,
-			List<Ticket> tickets,
-			Dictionary<string, OrganizationDictionaryValues> organizationDictionary,
-			Dictionary<string, UserDictionaryValues> userDictionary,
-			Dictionary<string, TicketDictionaryValues> ticketDictionary
+			Dictionary<string, OrganizationDictionaryValues> organizationDictionary
 		)
 		{
 			var searchResults = new List<string>();
-
 			var foundOrganizations = organizations.FindAll(organization => organization.Id.ToString() == keyword
 				|| organization.Url == keyword
 				|| organization.ExternalId == keyword
@@ -51,14 +47,23 @@ namespace TicketsSearch.Services
 					}
 				});
 			}
+			return searchResults;
+		}
 
+		public static List<string> SearchUsers(
+			this string keyword,
+			List<User> users,
+			Dictionary<string, UserDictionaryValues> userDictionary
+		)
+		{
+			var searchResults = new List<string>();
 			var foundUsers = users.FindAll(user => user.Id.ToString() == keyword
 				|| user.Url == keyword
 				|| user.ExternalId == keyword
 				|| user.Tags.Contains(keyword)
 				|| user.CreatedAt == keyword
 				|| user.Name == keyword
-				|| user.Alias.Contains(keyword)
+				|| user.Alias == keyword
 				|| user.Active.ToString().ToLower() == keyword
 				|| user.Verified.ToString().ToLower() == keyword
 				|| user.Shared.ToString().ToLower() == keyword
@@ -75,30 +80,30 @@ namespace TicketsSearch.Services
 			{
 				searchResults.Add($"{foundUsers.Count} matching users:");
 				searchResults.Add("----------------------------");
-				foundUsers.ForEach(org =>
+				foundUsers.ForEach(user =>
 				{
-					var user = userDictionary[org.Id.ToString()];
-					searchResults.Add($"\"{user.Entity.Name}\"");
-					if (user.Organizations.Count > 0)
+					var currentUser = userDictionary[user.Id.ToString()];
+					searchResults.Add($"\"{currentUser.Entity.Name}\"");
+					if (currentUser.Organizations.Count > 0)
 					{
-						searchResults.Add($"**  {user.Organizations.Count} linked organizations:");
-						user.Organizations.ForEach(organization =>
+						searchResults.Add($"**  Linked organization:");
+						currentUser.Organizations.ForEach(organization =>
 						{
 							searchResults.Add($"  - \"{organization.Name}\"");
 						});
 					}
-					if (user.SubmittedTickets.Count > 0)
+					if (currentUser.SubmittedTickets.Count > 0)
 					{
-						searchResults.Add($"**  {user.SubmittedTickets.Count} submitted tickets:");
-						user.SubmittedTickets.ForEach(submittedTickets =>
+						searchResults.Add($"**  {currentUser.SubmittedTickets.Count} submitted tickets:");
+						currentUser.SubmittedTickets.ForEach(submittedTickets =>
 						{
 							searchResults.Add($"  - \"{submittedTickets.Subject}\"");
 						});
 					}
-					if (user.AssignedTickets.Count > 0)
+					if (currentUser.AssignedTickets.Count > 0)
 					{
-						searchResults.Add($"** {user.AssignedTickets.Count} assigned tickets:");
-						user.AssignedTickets.ForEach(submittedTickets =>
+						searchResults.Add($"** {currentUser.AssignedTickets.Count} assigned tickets:");
+						currentUser.AssignedTickets.ForEach(submittedTickets =>
 						{
 							searchResults.Add($"  - \"{submittedTickets.Subject}\"");
 						});
@@ -106,6 +111,98 @@ namespace TicketsSearch.Services
 				});
 			}
 
+			return searchResults;
+		}
+
+		public static List<string> SearchTickets(
+			this string keyword,
+			List<Ticket> tickets,
+			Dictionary<string, TicketDictionaryValues> ticketDictionary
+		)
+		{
+			var searchResults = new List<string>();
+			var foundTickets = tickets.FindAll(ticket => ticket.Id.ToString() == keyword
+				|| ticket.Url == keyword
+				|| ticket.ExternalId == keyword
+				|| ticket.Tags.Contains(keyword)
+				|| ticket.CreatedAt == keyword
+				|| ticket.Type == keyword
+				|| ticket.Subject == keyword
+				|| ticket.Description == keyword
+				|| ticket.Priority == keyword
+				|| ticket.Status == keyword
+				|| ticket.SubmitterId == keyword
+				|| ticket.AssigneeId == keyword
+				|| ticket.OrganizationId == keyword
+				|| ticket.HasIncidents.ToString().ToLower() == keyword
+				|| ticket.DueAt == keyword
+				|| ticket.Via == keyword);
+			if (foundTickets.Count > 0)
+			{
+				searchResults.Add($"{foundTickets.Count} matching tickets:");
+				searchResults.Add("----------------------------");
+				foundTickets.ForEach(ticket =>
+				{
+					var currentTicket = ticketDictionary[ticket.Id.ToString()];
+					searchResults.Add($"\"{currentTicket.Entity.Subject}\"");
+					if (currentTicket.Organizations.Count > 0)
+					{
+						searchResults.Add($"**  {currentTicket.Organizations.Count} linked organizations:");
+						currentTicket.Organizations.ForEach(organization =>
+						{
+							searchResults.Add($"  - \"{organization.Name}\"");
+						});
+					}
+					if (currentTicket.SubmitterUsers.Count > 0)
+					{
+						searchResults.Add($"**  Submitted by:");
+						currentTicket.SubmitterUsers.ForEach(submittedUser =>
+						{
+							searchResults.Add($"  - \"{submittedUser.Name}\"");
+						});
+					}
+					if (currentTicket.AssignedUsers.Count > 0)
+					{
+						searchResults.Add($"** Assigned by:");
+						currentTicket.AssignedUsers.ForEach(assignedUser =>
+						{
+							searchResults.Add($"  - \"{assignedUser.Name}\"");
+						});
+					}
+				});
+			}
+
+			return searchResults;
+		}
+
+		public static List<string> Search(
+			this string keyword,
+			List<Organization> organizations,
+			List<User> users,
+			List<Ticket> tickets,
+			Dictionary<string, OrganizationDictionaryValues> organizationDictionary,
+			Dictionary<string, UserDictionaryValues> userDictionary,
+			Dictionary<string, TicketDictionaryValues> ticketDictionary
+		)
+		{
+			var organizationSearchResults = keyword.SearchOrganizations(
+				organizations,
+				organizationDictionary
+			);
+
+			var userSearchResults = keyword.SearchUsers(
+				users,
+				userDictionary
+			);
+
+			var ticketSearchResults = keyword.SearchTickets(
+				tickets,
+				ticketDictionary
+			);
+			var searchResults = organizationSearchResults
+				.Concat(userSearchResults)
+				.Concat(ticketSearchResults)
+				.ToList();
 			return searchResults;
 		}
 	}
