@@ -6,8 +6,8 @@ namespace TicketsSearch.Utilities
 {
 	public class ToDictionariesUtilities
 	{
-		public static (Dictionary<string, OrganizationDictionaryValues>,
-			Dictionary<string, UserDictionaryValues>,
+		public static (Dictionary<int, OrganizationDictionaryValues>,
+			Dictionary<int, UserDictionaryValues>,
 			Dictionary<string, TicketDictionaryValues>)
 		ToDictionaries(
 			List<Organization> organizations,
@@ -16,16 +16,17 @@ namespace TicketsSearch.Utilities
 		)
 		{
 			var organizationDictionary = organizations.ToDictionary(
-				organization => organization.Id.ToString(),
-				organization => new OrganizationDictionaryValues { 
+				organization => organization.Id,
+				organization => new OrganizationDictionaryValues
+				{
 					Entity = organization,
 					Users = new List<User>(),
 					Tickets = new List<Ticket>(),
-					
-				} 
+
+				}
 			);
 			var userDictionary = users.ToDictionary(
-				user => user.Id.ToString(),
+				user => user.Id,
 				user => new UserDictionaryValues
 				{
 					Entity = user,
@@ -44,12 +45,13 @@ namespace TicketsSearch.Utilities
 					Organizations = new List<Organization>()
 				}
 			);
-			users.ForEach(user => {
+			users.ForEach(user =>
+			{
 				var organizationId = user.OrganisationId;
-				if(organizationId != null && organizationDictionary.ContainsKey(organizationId))
-                {
-					organizationDictionary[organizationId].Users.Add(user);
-					userDictionary[user.Id.ToString()].Organizations.Add(organizationDictionary[organizationId].Entity);
+				if (organizationId != null && organizationDictionary.ContainsKey((int)organizationId))
+				{
+					organizationDictionary[(int)organizationId].Users.Add(user);
+					userDictionary[user.Id].Organizations.Add(organizationDictionary[(int)organizationId].Entity);
 				}
 			});
 
@@ -59,17 +61,17 @@ namespace TicketsSearch.Utilities
 				var ticketId = ticket.Id;
 				var assigneeId = ticket.AssigneeId;
 				var submitterId = ticket.SubmitterId;
-				if(organizationId != null && organizationDictionary.ContainsKey(organizationId))
-                {
-					organizationDictionary[organizationId].Tickets.Add(ticket);
-					ticketDictionary[ticketId].Organizations.Add(organizationDictionary[organizationId].Entity);
-				}
-				if (assigneeId != null && userDictionary.ContainsKey(assigneeId))
+				if (organizationId != null && organizationDictionary.ContainsKey((int)organizationId))
 				{
-					userDictionary[assigneeId].AssignedTickets.Add(ticket);
-					ticketDictionary[ticketId].AssignedUsers.Add(userDictionary[assigneeId].Entity);
+					organizationDictionary[(int)organizationId].Tickets.Add(ticket);
+					ticketDictionary[ticketId].Organizations.Add(organizationDictionary[(int)organizationId].Entity);
 				}
-				if (submitterId != null && userDictionary.ContainsKey(submitterId))
+				if (assigneeId != null && userDictionary.ContainsKey((int)assigneeId))
+				{
+					userDictionary[(int)assigneeId].AssignedTickets.Add(ticket);
+					ticketDictionary[ticketId].AssignedUsers.Add(userDictionary[(int)assigneeId].Entity);
+				}
+				if (userDictionary.ContainsKey(submitterId))
 				{
 					userDictionary[submitterId].SubmittedTickets.Add(ticket);
 					ticketDictionary[ticketId].SubmitterUsers.Add(userDictionary[submitterId].Entity);

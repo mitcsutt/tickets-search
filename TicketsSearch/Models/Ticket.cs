@@ -15,11 +15,11 @@ namespace TicketsSearch.Models
         [JsonProperty("status")]
         public string Status { get; set; }
         [JsonProperty("submitter_id")]
-        public string SubmitterId { get; set; }
+        public int SubmitterId { get; set; }
         [JsonProperty("assignee_id")]
-        public string AssigneeId { get; set; }
+        public int? AssigneeId { get; set; }
         [JsonProperty("organization_id")]
-        public string OrganizationId { get; set; }
+        public int? OrganizationId { get; set; }
         [JsonProperty("has_incidents")]
         public bool HasIncidents { get; set; }
         [JsonProperty("due_at")]

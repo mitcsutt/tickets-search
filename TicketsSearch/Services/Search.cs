@@ -8,7 +8,7 @@ namespace TicketsSearch.Services
 		public static List<string> SearchOrganizations(
 			this string keyword,
 			List<Organization> organizations,
-			Dictionary<string, OrganizationDictionaryValues> organizationDictionary
+			Dictionary<int, OrganizationDictionaryValues> organizationDictionary
 		)
 		{
 			var searchResults = new List<string>();
@@ -27,7 +27,7 @@ namespace TicketsSearch.Services
 				searchResults.Add("----------------------------");
 				foundOrganizations.ForEach(org =>
 				{
-					var organization = organizationDictionary[org.Id.ToString()];
+					var organization = organizationDictionary[org.Id];
 					searchResults.Add($"\"{organization.Entity.Name}\"");
 					if (organization.Tickets.Count > 0)
 					{
@@ -53,7 +53,7 @@ namespace TicketsSearch.Services
 		public static List<string> SearchUsers(
 			this string keyword,
 			List<User> users,
-			Dictionary<string, UserDictionaryValues> userDictionary
+			Dictionary<int, UserDictionaryValues> userDictionary
 		)
 		{
 			var searchResults = new List<string>();
@@ -73,7 +73,7 @@ namespace TicketsSearch.Services
 				|| user.Email == keyword
 				|| user.Phone == keyword
 				|| user.Signature == keyword
-				|| user.OrganisationId == keyword
+				|| user.OrganisationId.ToString() == keyword
 				|| user.Suspended == keyword
 				|| user.Role == keyword);
 			if (foundUsers.Count > 0)
@@ -82,7 +82,7 @@ namespace TicketsSearch.Services
 				searchResults.Add("----------------------------");
 				foundUsers.ForEach(user =>
 				{
-					var currentUser = userDictionary[user.Id.ToString()];
+					var currentUser = userDictionary[user.Id];
 					searchResults.Add($"\"{currentUser.Entity.Name}\"");
 					if (currentUser.Organizations.Count > 0)
 					{
@@ -131,9 +131,9 @@ namespace TicketsSearch.Services
 				|| ticket.Description == keyword
 				|| ticket.Priority == keyword
 				|| ticket.Status == keyword
-				|| ticket.SubmitterId == keyword
-				|| ticket.AssigneeId == keyword
-				|| ticket.OrganizationId == keyword
+				|| ticket.SubmitterId.ToString() == keyword
+				|| ticket.AssigneeId.ToString() == keyword
+				|| ticket.OrganizationId.ToString() == keyword
 				|| ticket.HasIncidents.ToString().ToLower() == keyword
 				|| ticket.DueAt == keyword
 				|| ticket.Via == keyword);
@@ -143,7 +143,7 @@ namespace TicketsSearch.Services
 				searchResults.Add("----------------------------");
 				foundTickets.ForEach(ticket =>
 				{
-					var currentTicket = ticketDictionary[ticket.Id.ToString()];
+					var currentTicket = ticketDictionary[ticket.Id];
 					searchResults.Add($"\"{currentTicket.Entity.Subject}\"");
 					if (currentTicket.Organizations.Count > 0)
 					{
@@ -180,8 +180,8 @@ namespace TicketsSearch.Services
 			List<Organization> organizations,
 			List<User> users,
 			List<Ticket> tickets,
-			Dictionary<string, OrganizationDictionaryValues> organizationDictionary,
-			Dictionary<string, UserDictionaryValues> userDictionary,
+			Dictionary<int, OrganizationDictionaryValues> organizationDictionary,
+			Dictionary<int, UserDictionaryValues> userDictionary,
 			Dictionary<string, TicketDictionaryValues> ticketDictionary
 		)
 		{
