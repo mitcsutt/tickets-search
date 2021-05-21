@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.809.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketsSearch", "TicketsSearch\TicketsSearch.csproj", "{4DB48113-AB3A-447F-9DE7-79F2E56D54DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketsSearch.Tests", "TicketsSearch.Tests\TicketsSearch.Tests.csproj", "{376234BC-63E3-4766-8661-00F2278B5AC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{4DB48113-AB3A-447F-9DE7-79F2E56D54DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DB48113-AB3A-447F-9DE7-79F2E56D54DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DB48113-AB3A-447F-9DE7-79F2E56D54DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{376234BC-63E3-4766-8661-00F2278B5AC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{376234BC-63E3-4766-8661-00F2278B5AC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{376234BC-63E3-4766-8661-00F2278B5AC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{376234BC-63E3-4766-8661-00F2278B5AC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
