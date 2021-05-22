@@ -27,9 +27,9 @@ namespace TicketsSearch.Models
         [JsonProperty("signature")]
         public string Signature { get; set; }
         [JsonProperty("organization_id")]
-        public int? OrganisationId { get; set; }
+        public int? OrganizationId { get; set; }
         [JsonProperty("suspended")]
-        public string Suspended { get; set; }
+        public bool Suspended { get; set; }
         [JsonProperty("role")]
         public string Role { get; set; }
     }

@@ -73,8 +73,8 @@ namespace TicketsSearch.Services
 				|| user.Email == keyword
 				|| user.Phone == keyword
 				|| user.Signature == keyword
-				|| user.OrganisationId.ToString() == keyword
-				|| user.Suspended == keyword
+				|| user.OrganizationId.ToString() == keyword
+				|| user.Suspended.ToString().ToLower() == keyword
 				|| user.Role == keyword);
 			if (foundUsers.Count > 0)
 			{

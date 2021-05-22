@@ -47,7 +47,7 @@ namespace TicketsSearch.Utilities
 			);
 			users.ForEach(user =>
 			{
-				var organizationId = user.OrganisationId;
+				var organizationId = user.OrganizationId;
 				if (organizationId != null && organizationDictionary.ContainsKey((int)organizationId))
 				{
 					organizationDictionary[(int)organizationId].Users.Add(user);
