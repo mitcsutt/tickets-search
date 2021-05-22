@@ -51,6 +51,8 @@ namespace TicketsSearch
                             {
 								Console.WriteLine("No search results");
 							}
+							Console.WriteLine();
+							Console.WriteLine("Search for the values");
 
 							break;
 						default:
