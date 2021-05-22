@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Folder Include="Utilities\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TicketsSearch\TicketsSearch.csproj" />

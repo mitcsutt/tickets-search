@@ -31,7 +31,7 @@ namespace TicketsSearch.Services
 					searchResults.Add($"\"{organization.Entity.Name}\"");
 					if (organization.Tickets.Count > 0)
 					{
-						searchResults.Add($"**  {organization.Tickets.Count} linked tickets:");
+						searchResults.Add($"*** {organization.Tickets.Count} linked tickets:");
 						organization.Tickets.ForEach(ticket =>
 						{
 							searchResults.Add($"  - \"{ticket.Subject}\"");
@@ -39,7 +39,7 @@ namespace TicketsSearch.Services
 					}
 					if (organization.Users.Count > 0)
 					{
-						searchResults.Add($"**  {organization.Users.Count} linked users:");
+						searchResults.Add($"*** {organization.Users.Count} linked users:");
 						organization.Users.ForEach(user =>
 						{
 							searchResults.Add($"  - \"{user.Name}\"");
@@ -86,7 +86,7 @@ namespace TicketsSearch.Services
 					searchResults.Add($"\"{currentUser.Entity.Name}\"");
 					if (currentUser.Organizations.Count > 0)
 					{
-						searchResults.Add($"**  Linked organization:");
+						searchResults.Add($"*** Linked organization:");
 						currentUser.Organizations.ForEach(organization =>
 						{
 							searchResults.Add($"  - \"{organization.Name}\"");
@@ -94,7 +94,7 @@ namespace TicketsSearch.Services
 					}
 					if (currentUser.SubmittedTickets.Count > 0)
 					{
-						searchResults.Add($"**  {currentUser.SubmittedTickets.Count} submitted tickets:");
+						searchResults.Add($"*** {currentUser.SubmittedTickets.Count} submitted tickets:");
 						currentUser.SubmittedTickets.ForEach(submittedTickets =>
 						{
 							searchResults.Add($"  - \"{submittedTickets.Subject}\"");
@@ -102,7 +102,7 @@ namespace TicketsSearch.Services
 					}
 					if (currentUser.AssignedTickets.Count > 0)
 					{
-						searchResults.Add($"** {currentUser.AssignedTickets.Count} assigned tickets:");
+						searchResults.Add($"*** {currentUser.AssignedTickets.Count} assigned tickets:");
 						currentUser.AssignedTickets.ForEach(submittedTickets =>
 						{
 							searchResults.Add($"  - \"{submittedTickets.Subject}\"");
@@ -147,7 +147,7 @@ namespace TicketsSearch.Services
 					searchResults.Add($"\"{currentTicket.Entity.Subject}\"");
 					if (currentTicket.Organizations.Count > 0)
 					{
-						searchResults.Add($"**  {currentTicket.Organizations.Count} linked organizations:");
+						searchResults.Add($"*** {currentTicket.Organizations.Count} linked organizations:");
 						currentTicket.Organizations.ForEach(organization =>
 						{
 							searchResults.Add($"  - \"{organization.Name}\"");
@@ -155,7 +155,7 @@ namespace TicketsSearch.Services
 					}
 					if (currentTicket.SubmitterUsers.Count > 0)
 					{
-						searchResults.Add($"**  Submitted by:");
+						searchResults.Add($"*** Submitted by:");
 						currentTicket.SubmitterUsers.ForEach(submittedUser =>
 						{
 							searchResults.Add($"  - \"{submittedUser.Name}\"");
@@ -163,7 +163,7 @@ namespace TicketsSearch.Services
 					}
 					if (currentTicket.AssignedUsers.Count > 0)
 					{
-						searchResults.Add($"** Assigned by:");
+						searchResults.Add($"*** Assigned by:");
 						currentTicket.AssignedUsers.ForEach(assignedUser =>
 						{
 							searchResults.Add($"  - \"{assignedUser.Name}\"");

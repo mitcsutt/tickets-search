@@ -8,37 +8,37 @@ namespace TicketsSearch.Tests
 		protected static readonly Organization organization1 = new Organization
 		{
 			Id = 1,
-			Url = "http://example.com",
+			Url = "http://example1.com",
 			ExternalId = "1",
 			Name = "Organization 1",
 			DomainNames = new List<string>
 			{
-				"example.com",
+				"example1.com",
 			},
-			CreatedAt = "time",
-			Details = "Organization details",
-			SharedTickets = false,
+			CreatedAt = "time1",
+			Details = "Organization details 1",
+			SharedTickets = true,
 			Tags = new List<string>
 			{
-				"Test"
+				"Test 1"
 			}
 		};
 		protected static readonly Organization organization2 = new Organization
 		{
 			Id = 2,
-			Url = "http://example.com",
+			Url = "http://example2.com",
 			ExternalId = "2",
 			Name = "Organization 2",
 			DomainNames = new List<string>
 			{
-				"example.com",
+				"example2.com",
 			},
-			CreatedAt = "time",
-			Details = "Organization details",
+			CreatedAt = "time2",
+			Details = "Organization details 2",
 			SharedTickets = false,
 			Tags = new List<string>
 			{
-				"Test"
+				"Test 2"
 			}
 		};
 		public static readonly List<Organization> organizations = new List<Organization> {
@@ -48,46 +48,46 @@ namespace TicketsSearch.Tests
 		protected static readonly Ticket ticket1 = new Ticket
 		{
 			Id = "1",
-			Url = "http://example.com",
+			Url = "http://example1.com",
 			ExternalId = "1",
-			CreatedAt = "time",
-			Type = "incident",
+			CreatedAt = "time1",
+			Type = "incident1",
 			Subject = "Ticket 1",
-			Description = "A test ticket",
-			Priority = "high",
-			Status = "pending",
+			Description = "A test ticket 1",
+			Priority = "high1",
+			Status = "pending1",
 			SubmitterId = 1,
 			AssigneeId = 2,
 			OrganizationId = 1,
 			Tags = new List<string>
 			{
-				"Test"
+				"Test1"
 			},
-			HasIncidents = false,
-			DueAt = "time",
-			Via = "web"
+			HasIncidents = true,
+			DueAt = "time1",
+			Via = "web1"
 		};
 		protected static readonly Ticket ticket2 = new Ticket
 		{
 			Id = "2",
-			Url = "http://example.com",
+			Url = "http://example2.com",
 			ExternalId = "2",
-			CreatedAt = "time",
-			Type = "incident",
+			CreatedAt = "time2",
+			Type = "incident2",
 			Subject = "Ticket 2",
-			Description = "A test ticket",
-			Priority = "high",
-			Status = "pending",
+			Description = "A test ticket 2",
+			Priority = "high2",
+			Status = "pending2",
 			SubmitterId = 2,
 			AssigneeId = 1,
 			OrganizationId = 2,
 			Tags = new List<string>
 			{
-				"Test"
+				"Test2"
 			},
-			HasIncidents = false,
-			DueAt = "time",
-			Via = "web"
+			HasIncidents = true,
+			DueAt = "time2",
+			Via = "web2"
 		};
 		public static readonly List<Ticket> tickets = new List<Ticket> {
 			ticket1,
