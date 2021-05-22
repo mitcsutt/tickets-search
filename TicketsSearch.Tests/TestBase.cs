@@ -15,12 +15,12 @@ namespace TicketsSearch.Tests
 			{
 				"example1.com",
 			},
-			CreatedAt = "time1",
+			CreatedAt = "time",
 			Details = "Organization details 1",
 			SharedTickets = true,
 			Tags = new List<string>
 			{
-				"Test 1"
+				"Test"
 			}
 		};
 		protected static readonly Organization organization2 = new Organization
@@ -33,12 +33,12 @@ namespace TicketsSearch.Tests
 			{
 				"example2.com",
 			},
-			CreatedAt = "time2",
+			CreatedAt = "time",
 			Details = "Organization details 2",
 			SharedTickets = false,
 			Tags = new List<string>
 			{
-				"Test 2"
+				"Test"
 			}
 		};
 		public static readonly List<Organization> organizations = new List<Organization> {
@@ -85,7 +85,7 @@ namespace TicketsSearch.Tests
 			{
 				"Test2"
 			},
-			HasIncidents = true,
+			HasIncidents = false,
 			DueAt = "time2",
 			Via = "web2"
 		};
@@ -96,52 +96,52 @@ namespace TicketsSearch.Tests
 		protected static readonly User user1 = new User
 		{
 			Id = 1,
-			Url = "http://example.com",
+			Url = "http://example1.com",
 			ExternalId = "1",
 			CreatedAt = "time",
 			Name = "User 1",
-			Alias = "Cool User",
-			Active = false,
+			Alias = "Cool User1",
+			Active = true,
 			Verified = true,
 			Shared = true,
-			Locale = "en-AU",
+			Locale = "en-AU1",
 			Timezone = "Australia",
-			LastLoginAt = "time",
-			Email = "user@example.com",
-			Phone = "0400000000",
+			LastLoginAt = "time1",
+			Email = "user@example1.com",
+			Phone = "04000000001",
 			Signature = "him/he",
 			OrganizationId = 1,
 			Tags = new List<string>
 			{
-				"Test"
+				"Test1"
 			},
 			Suspended = true,
-			Role = "admin"
+			Role = "admin1"
 		};
 		protected static readonly User user2 = new User
 		{
 			Id = 2,
-			Url = "http://example.com",
+			Url = "http://example2.com",
 			ExternalId = "2",
 			CreatedAt = "time",
 			Name = "User 2",
-			Alias = "Cool User",
+			Alias = "Cool User2",
 			Active = false,
-			Verified = true,
-			Shared = true,
-			Locale = "en-AU",
+			Verified = false,
+			Shared = false,
+			Locale = "en-AU2",
 			Timezone = "Australia",
-			LastLoginAt = "time",
-			Email = "user@example.com",
-			Phone = "0400000000",
+			LastLoginAt = "time2",
+			Email = "user@example2.com",
+			Phone = "04000000002",
 			Signature = "him/he",
 			OrganizationId = 2,
 			Tags = new List<string>
 			{
-				"Test"
+				"Test2"
 			},
-			Suspended = true,
-			Role = "admin"
+			Suspended = false,
+			Role = "admin2"
 		};
 		public static readonly List<User> users = new List<User> {
 			user1,
