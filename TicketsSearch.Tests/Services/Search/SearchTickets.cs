@@ -11,6 +11,7 @@ namespace TicketsSearch.Tests.Services
 		{
 			var keyword = "non-existant";
 			var results = keyword.SearchTickets(
+				"Url",
 				tickets,
 				ticketDictionary
 			);
@@ -19,33 +20,34 @@ namespace TicketsSearch.Tests.Services
 		}
 
 		[DataTestMethod]
-		[DataRow("1", true, true)]
-		[DataRow("http://example1.com", true, false)]
-		[DataRow("time1", true, false)]
-		[DataRow("incident1", true, false)]
-		[DataRow("Ticket 1", true, false)]
-		[DataRow("A test ticket 1", true, false)]
-		[DataRow("high1", true, false)]
-		[DataRow("pending1", true, false)]
-		[DataRow("Test1", true, false)]
-		[DataRow("true", true, false)]
-		[DataRow("time1", true, false)]
-		[DataRow("web1", true, false)]
-		[DataRow("2", true, true)]
-		[DataRow("http://example2.com", false, true)]
-		[DataRow("time2", false, true)]
-		[DataRow("incident2", false, true)]
-		[DataRow("Ticket 2", false, true)]
-		[DataRow("A test ticket 2", false, true)]
-		[DataRow("high2", false, true)]
-		[DataRow("pending2", false, true)]
-		[DataRow("Test2", false, true)]
-		[DataRow("false", false, true)]
-		[DataRow("time2", false, true)]
-		[DataRow("web2", false, true)]
-		public void ValidKeyword_ReturnsResultList(string keyword, bool matchesTicket1, bool matchesTicket2)
+		[DataRow("1", "Id", true, false)]
+		[DataRow("http://example1.com", "Url", true, false)]
+		[DataRow("time1", "CreatedAt", true, false)]
+		[DataRow("incident1", "Type", true, false)]
+		[DataRow("Ticket 1", "Subject", true, false)]
+		[DataRow("A test ticket 1", "Description", true, false)]
+		[DataRow("high1", "Priority", true, false)]
+		[DataRow("pending1", "Status", true, false)]
+		[DataRow("Test1", "Tags", true, false)]
+		[DataRow("true", "HasIncidents", true, false)]
+		[DataRow("time1", "DueAt", true, false)]
+		[DataRow("web1", "Via", true, false)]
+		[DataRow("2", "Id", false, true)]
+		[DataRow("http://example2.com", "Url", false, true)]
+		[DataRow("time2", "CreatedAt", false, true)]
+		[DataRow("incident2", "Type", false, true)]
+		[DataRow("Ticket 2", "Subject", false, true)]
+		[DataRow("A test ticket 2", "Description", false, true)]
+		[DataRow("high2", "Priority", false, true)]
+		[DataRow("pending2", "Status", false, true)]
+		[DataRow("Test2", "Tags", false, true)]
+		[DataRow("false", "HasIncidents", false, true)]
+		[DataRow("time2", "DueAt", false, true)]
+		[DataRow("web2", "Via", false, true)]
+		public void ValidKeyword_ReturnsResultList(string keyword, string property, bool matchesTicket1, bool matchesTicket2)
 		{
 			var results = keyword.SearchTickets(
+				property,
 				tickets,
 				ticketDictionary
 			);

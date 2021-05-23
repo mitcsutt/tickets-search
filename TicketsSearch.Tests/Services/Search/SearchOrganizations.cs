@@ -11,6 +11,7 @@ namespace TicketsSearch.Tests.Services
 		{
 			var keyword = "non-existant";
 			var results = keyword.SearchOrganizations(
+				"Name",
 				organizations,
 				organizationDictionary
 			);
@@ -19,23 +20,24 @@ namespace TicketsSearch.Tests.Services
 		}
 
 		[DataTestMethod]
-		[DataRow("1", true, false)]
-		[DataRow("http://example1.com", true, false)]
-		[DataRow("Organization 1", true, false)]
-		[DataRow("example1.com", true, false)]
-		[DataRow("time", true, true)]
-		[DataRow("Organization details 1", true, false)]
-		[DataRow("true", true, false)]
-		[DataRow("Test", true, true)]
-		[DataRow("2", false, true)]
-		[DataRow("http://example2.com", false, true)]
-		[DataRow("Organization 2", false, true)]
-		[DataRow("example2.com", false, true)]
-		[DataRow("Organization details 2", false, true)]
-		[DataRow("false", false, true)]
-		public void ValidKeyword_ReturnsResultList(string keyword, bool matchesOrganization1, bool matchesOrganization2)
+		[DataRow("1", "Id", true, false)]
+		[DataRow("http://example1.com", "Url", true, false)]
+		[DataRow("Organization 1", "Name", true, false)]
+		[DataRow("example1.com", "DomainNames", true, false)]
+		[DataRow("time", "CreatedAt", true, true)]
+		[DataRow("Organization details 1", "Details", true, false)]
+		[DataRow("true", "SharedTickets", true, false)]
+		[DataRow("Test", "Tags", true, true)]
+		[DataRow("2", "Id", false, true)]
+		[DataRow("http://example2.com", "Url", false, true)]
+		[DataRow("Organization 2", "Name", false, true)]
+		[DataRow("example2.com", "DomainNames", false, true)]
+		[DataRow("Organization details 2", "Details", false, true)]
+		[DataRow("false", "SharedTickets", false, true)]
+		public void ValidKeyword_ReturnsResultList(string keyword, string property, bool matchesOrganization1, bool matchesOrganization2)
 		{
 			var results = keyword.SearchOrganizations(
+				property,
 				organizations,
 				organizationDictionary
 			);

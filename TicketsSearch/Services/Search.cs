@@ -5,22 +5,37 @@ namespace TicketsSearch.Services
 {
 	public static class SearchService
 	{
+
+		public static bool KeywordMatches(this object value, string keyword)
+		{
+			if(value is string @string)
+            {
+				return @string == keyword;
+			}
+			if (value is int @int)
+			{
+				return @int.ToString() == keyword;
+			}
+			if (value is bool @bool)
+			{
+				return @bool.ToString().ToLower() == keyword;
+			}
+			if (value is List<string> @list)
+			{
+				return @list.Contains(keyword);
+			}
+			return false;
+		}
+
 		public static List<string> SearchOrganizations(
 			this string keyword,
+			string property,
 			List<Organization> organizations,
 			Dictionary<int, OrganizationDictionaryValues> organizationDictionary
 		)
 		{
 			var searchResults = new List<string>();
-			var foundOrganizations = organizations.FindAll(organization => organization.Id.ToString() == keyword
-				|| organization.Url == keyword
-				|| organization.ExternalId == keyword
-				|| organization.Tags.Contains(keyword)
-				|| organization.CreatedAt == keyword
-				|| organization.Name == keyword
-				|| organization.DomainNames.Contains(keyword)
-				|| organization.Details == keyword
-				|| organization.SharedTickets.ToString().ToLower() == keyword);
+			var foundOrganizations = organizations.FindAll(organization => organization[property].KeywordMatches(keyword));
 			if (foundOrganizations.Count > 0)
 			{
 				searchResults.Add($"Matching organizations({foundOrganizations.Count}):");
@@ -52,30 +67,14 @@ namespace TicketsSearch.Services
 
 		public static List<string> SearchUsers(
 			this string keyword,
+			string property,
 			List<User> users,
 			Dictionary<int, UserDictionaryValues> userDictionary
 		)
 		{
 			var searchResults = new List<string>();
-			var foundUsers = users.FindAll(user => user.Id.ToString() == keyword
-				|| user.Url == keyword
-				|| user.ExternalId == keyword
-				|| user.Tags.Contains(keyword)
-				|| user.CreatedAt == keyword
-				|| user.Name == keyword
-				|| user.Alias == keyword
-				|| user.Active.ToString().ToLower() == keyword
-				|| user.Verified.ToString().ToLower() == keyword
-				|| user.Shared.ToString().ToLower() == keyword
-				|| user.Locale == keyword
-				|| user.Timezone == keyword
-				|| user.LastLoginAt == keyword
-				|| user.Email == keyword
-				|| user.Phone == keyword
-				|| user.Signature == keyword
-				|| user.OrganizationId.ToString() == keyword
-				|| user.Suspended.ToString().ToLower() == keyword
-				|| user.Role == keyword);
+			var foundUsers = users.FindAll(user => user[property].KeywordMatches(keyword));
+
 			if (foundUsers.Count > 0)
 			{
 				searchResults.Add($"Matching users({foundUsers.Count}):");
@@ -116,27 +115,14 @@ namespace TicketsSearch.Services
 
 		public static List<string> SearchTickets(
 			this string keyword,
+			string property,
 			List<Ticket> tickets,
 			Dictionary<string, TicketDictionaryValues> ticketDictionary
 		)
 		{
 			var searchResults = new List<string>();
-			var foundTickets = tickets.FindAll(ticket => ticket.Id.ToString() == keyword
-				|| ticket.Url == keyword
-				|| ticket.ExternalId == keyword
-				|| ticket.Tags.Contains(keyword)
-				|| ticket.CreatedAt == keyword
-				|| ticket.Type == keyword
-				|| ticket.Subject == keyword
-				|| ticket.Description == keyword
-				|| ticket.Priority == keyword
-				|| ticket.Status == keyword
-				|| ticket.SubmitterId.ToString() == keyword
-				|| ticket.AssigneeId.ToString() == keyword
-				|| ticket.OrganizationId.ToString() == keyword
-				|| ticket.HasIncidents.ToString().ToLower() == keyword
-				|| ticket.DueAt == keyword
-				|| ticket.Via == keyword);
+			var foundTickets = tickets.FindAll(ticket => ticket[property].KeywordMatches(keyword));
+
 			if (foundTickets.Count > 0)
 			{
 				searchResults.Add($"Matching tickets({foundTickets.Count}):");
@@ -172,37 +158,6 @@ namespace TicketsSearch.Services
 				});
 			}
 
-			return searchResults;
-		}
-
-		public static List<string> Search(
-			this string keyword,
-			List<Organization> organizations,
-			List<User> users,
-			List<Ticket> tickets,
-			Dictionary<int, OrganizationDictionaryValues> organizationDictionary,
-			Dictionary<int, UserDictionaryValues> userDictionary,
-			Dictionary<string, TicketDictionaryValues> ticketDictionary
-		)
-		{
-			var organizationSearchResults = keyword.SearchOrganizations(
-				organizations,
-				organizationDictionary
-			);
-
-			var userSearchResults = keyword.SearchUsers(
-				users,
-				userDictionary
-			);
-
-			var ticketSearchResults = keyword.SearchTickets(
-				tickets,
-				ticketDictionary
-			);
-			var searchResults = organizationSearchResults
-				.Concat(userSearchResults)
-				.Concat(ticketSearchResults)
-				.ToList();
 			return searchResults;
 		}
 	}

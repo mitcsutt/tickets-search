@@ -11,6 +11,7 @@ namespace TicketsSearch.Tests.Services
 		{
 			var keyword = "non-existant";
 			var results = keyword.SearchUsers(
+				"Name",
 				users,
 				userDictionary
 			);
@@ -19,35 +20,35 @@ namespace TicketsSearch.Tests.Services
 		}
 
 		[DataTestMethod]
-		[DataRow("1", true, false)]
-		[DataRow("http://example1.com", true, false)]
-		[DataRow("time", true, true)]
-		[DataRow("User 1", true, false)]
-		[DataRow("Cool User1", true, false)]
-		[DataRow("true", true, false)]
-		[DataRow("en-AU1", true, false)]
-		[DataRow("Australia", true, true)]
-		[DataRow("time1", true, false)]
-		[DataRow("user@example1.com", true, false)]
-		[DataRow("04000000001", true, false)]
-		[DataRow("him/he", true, true)]
-		[DataRow("Test1", true, false)]
-		[DataRow("admin1", true, false)]
-		[DataRow("2", false, true)]
-		[DataRow("http://example2.com", false, true)]
-		[DataRow("User 2", false, true)]
-		[DataRow("Cool User2", false, true)]
-		[DataRow("false", false, true)]
-		[DataRow("en-AU2", false, true)]
-		[DataRow("time2", false, true)]
-		[DataRow("user@example2.com", false, true)]
-		[DataRow("04000000002", false, true)]
-		[DataRow("Test2", false, true)]
-		[DataRow("false", false, true)]
-		[DataRow("admin2", false, true)]
-		public void ValidKeyword_ReturnsResultList(string keyword, bool matchesUser1, bool matchesUser2)
+		[DataRow("1", "Id", true, false)]
+		[DataRow("http://example1.com", "Url", true, false)]
+		[DataRow("time", "CreatedAt", true, true)]
+		[DataRow("User 1", "Name", true, false)]
+		[DataRow("Cool User1", "Alias", true, false)]
+		[DataRow("true", "Active", true, false)]
+		[DataRow("en-AU1", "Locale", true, false)]
+		[DataRow("Australia", "Timezone", true, true)]
+		[DataRow("time1", "LastLoginAt", true, false)]
+		[DataRow("user@example1.com", "Email", true, false)]
+		[DataRow("04000000001", "Phone", true, false)]
+		[DataRow("him/he", "Signature", true, true)]
+		[DataRow("Test1", "Tags", true, false)]
+		[DataRow("admin1", "Role", true, false)]
+		[DataRow("2", "Id", false, true)]
+		[DataRow("http://example2.com", "Url", false, true)]
+		[DataRow("User 2", "Name", false, true)]
+		[DataRow("Cool User2", "Alias", false, true)]
+		[DataRow("false", "Active", false, true)]
+		[DataRow("en-AU2", "Locale", false, true)]
+		[DataRow("user@example2.com", "Email", false, true)]
+		[DataRow("04000000002", "Phone", false, true)]
+		[DataRow("Test2", "Tags", false, true)]
+		[DataRow("false", "Suspended", false, true)]
+		[DataRow("admin2", "Role", false, true)]
+		public void ValidKeyword_ReturnsResultList(string keyword, string property, bool matchesUser1, bool matchesUser2)
 		{
 			var results = keyword.SearchUsers(
+				property,
 				users,
 				userDictionary
 			);

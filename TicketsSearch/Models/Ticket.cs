@@ -4,6 +4,10 @@ namespace TicketsSearch.Models
 {
     public class Ticket : Entity<string>
     {
+        public object this[string propertyName]
+        {
+            get { return GetType().GetProperty(propertyName).GetValue(this, null); }
+        }
         [JsonProperty("type")]
         public string Type { get; set; }
         [JsonProperty("subject")]
