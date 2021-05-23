@@ -1,3 +1,4 @@
+
 # Zendesk Coding Challenge
 
 * [Running the app](#running-the-app)
@@ -35,11 +36,19 @@ dotnet run
 The app search across all 3 data sets on all fields. There are 2 commands you can use in the app
 ```
 search: runs the search command
-  input: The raw text to be searched for
-  example: >search Mitchell Sutton
+  param1: Entity name (organization|ticket|user)
+  param2: Property name (Field to search on)
   
 q: exits the app
 ```
 
+All fields have been converted to PascalCase, and the "_id" field has been shortened to just "Id". Search fields should be done in PascalCase
+
+Example
+```
+search ticket Subject A Problem in the Sahara
+search organization Name Megazza
+search user Verified true
+```
 ## Assumptions
 1. The submitter_id and assignee_id fields on the Ticket object refer to the User
