@@ -7,7 +7,14 @@ namespace TicketsSearch.Utilities
 	{
 		public static List<Object> Deserialise<Object>(this string json)
 		{
-			return JsonConvert.DeserializeObject<List<Object>>(json);
+            try
+			{
+				return JsonConvert.DeserializeObject<List<Object>>(json);
+			}
+			catch
+            {
+				throw new JsonSerializationException();
+            }
 		}
 	}
 }

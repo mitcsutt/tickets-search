@@ -12,13 +12,23 @@ namespace TicketsSearch
 	{
 		static void Main(string[] args)
 		{
-			string jsonOrganizations = File.ReadAllText("Data/organizations.json");
+			string jsonOrganizations;
+			string jsonUsers;
+			string jsonTickets;
+
+			try
+			{
+				jsonOrganizations = File.ReadAllText("Data/organizations.json");
+				jsonUsers = File.ReadAllText("Data/users.json");
+				jsonTickets = File.ReadAllText("Data/tickets.json");
+			}
+            catch
+            {
+				throw new FileNotFoundException();
+            }
+
 			List<Organization> organizations = jsonOrganizations.Deserialise<Organization>();
-
-			string jsonUsers = File.ReadAllText("Data/users.json");
 			List<User> users = jsonUsers.Deserialise<User>();
-
-			string jsonTickets = File.ReadAllText("Data/tickets.json");
 			List<Ticket> tickets = jsonTickets.Deserialise<Ticket>();
 
 			var (organizationDictionary, userDictionary, ticketDictionary) =
